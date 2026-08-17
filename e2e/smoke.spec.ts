@@ -1,9 +1,9 @@
 import { test, expect } from '@playwright/test';
-test('home loads and waitlist form is visible', async ({ page }) => {
+test('home loads and hero is visible', async ({ page }) => {
   await page.goto('/');
-  await expect(page.locator('h1')).toContainText('ProposalPilot');
-  await expect(page.getByLabel('Email address')).toBeVisible();
-  await expect(page.getByRole('button', { name: /Get early access/i })).toBeVisible();
+  await expect(page.locator('h1')).toContainText('Your next proposal');
+  await expect(page.getByRole('button', { name: /Open demo/i })).toBeVisible();
+  await expect(page.getByText(/AI proposals in under a minute/i)).toBeVisible();
 });
 test('waitlist submit shows success', async ({ page, request }) => {
   const res = await request.post('/api/waitlist', {
