@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
+import { motion, useReducedMotion } from "motion/react";
 
 export default function LandingPage() {
   const router = useRouter();
@@ -47,13 +48,39 @@ export default function LandingPage() {
       </header>
 
       <section className="container max-w-4xl px-6 flex-1 flex flex-col justify-center py-12">
-        <h2 className="font-display text-4xl sm:text-5xl font-bold text-text-primary leading-tight max-w-2xl">
-          Your next proposal in under a minute.
-        </h2>
-        <p className="mt-4 text-lg text-text-muted max-w-xl">
-          Paste your call notes. Get a priced, ready-to-send proposal that reads like you
-          wrote it — and know the moment a client opens it.
-        </p>
+        <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-10 items-center">
+          <div>
+            <motion.h2 
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, ease: [0.16,1,0.3,1] }}
+              className="font-display text-4xl sm:text-5xl font-bold text-text-primary leading-[1.05] tracking-tighter max-w-xl"
+            >
+              Your next proposal in under a minute.
+            </motion.h2>
+            <motion.p 
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.05, ease: [0.16,1,0.3,1] }}
+              className="mt-4 text-base sm:text-lg text-text-muted max-w-xl leading-relaxed"
+            >
+              Paste notes. Get a priced proposal that sounds like you. Track opens.
+            </motion.p>
+          </div>
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.98 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.1, ease: [0.16,1,0.3,1] }}
+            className="hidden lg:block"
+          >
+            <img 
+              src="https://picsum.photos/seed/proposalpilot-hero/800/600" 
+              alt="Freelancer reviewing proposal on laptop" 
+              className="w-full rounded-2xl border border-border-default shadow-sm"
+              loading="eager"
+            />
+          </motion.div>
+        </div>
 
         <ul className="mt-8 space-y-3 max-w-xl">
           {[
@@ -74,7 +101,7 @@ export default function LandingPage() {
 
         <div id="waitlist" className="mt-10 max-w-xl">
           <label htmlFor="waitlist-email" className="block text-sm font-medium text-text-primary mb-2">
-            Get early access — free while in beta
+            Get early access - free while in beta
           </label>
           <div className="flex flex-col sm:flex-row gap-3">
             <Input
