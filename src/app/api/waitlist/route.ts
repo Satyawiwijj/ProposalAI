@@ -11,7 +11,8 @@ const waitlistSchema = z.object({
 
 export async function POST(request: NextRequest) {
   const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
-  if (!rateLimit(`waitlist:${ip}`)) {
+  const allowed = await rateLimit(`waitlist:${ip}`);
+  if (!allowed) {
     return NextResponse.json({ error: 'Too many requests' }, { status: 429 });
   }
   try {
